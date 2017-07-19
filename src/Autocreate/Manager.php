@@ -5,6 +5,7 @@ namespace BitrixMigrations\Autocreate
     use Arrilot\BitrixMigrations\TemplatesCollection;
     use Arrilot\BitrixMigrations\Migrator;
     use Webmozart\PathUtil\Path;
+    use Bitrix\Main\EventManager;
 
     /**
      * Перекрывает методы автоматического создания миграций.
@@ -66,6 +67,29 @@ namespace BitrixMigrations\Autocreate
         }
 
         /**
+         * Перекрывает добавление обработчиков событий.
+         */
+        protected static function addEventHandlers()
+        {
+            $events = EventManager::getInstance();
+
+            foreach (static::$handlers as $module => $handlers)
+            {
+                foreach ($handlers as $event => $handler)
+                {
+                    $events->addEventHandler($module, $event, [__CLASS__, $handler], false, 5000);
+                }
+            }
+
+            $events->addEventHandler('main', 'OnAfterEpilog', function () {
+                $notifier = new Notifier();
+                $notifier->deleteNotificationFromPreviousMigration();
+
+                return new EventResult();
+            });
+        }
+
+        /**
          * Перегружает получение экземпляра обработчика события.
          * @param  string       $handler    Имя обработчика.
          * @param  array<mixed> $parameters Аргументы вызова события.
@@ -73,7 +97,7 @@ namespace BitrixMigrations\Autocreate
          */
         protected static function instantiateHandler($handler, $parameters)
         {
-            $isNative = !isset(self::$overrides[$handler]);
+            $isNative = !isset(static::$overrides[$handler]);
             if ($isNative) return parent::instantiateHandler($handler, $parameters);
 
             $class = __NAMESPACE__.'\\Handlers\\'.$handler;
