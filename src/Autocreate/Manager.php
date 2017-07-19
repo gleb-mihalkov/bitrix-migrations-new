@@ -12,22 +12,12 @@ namespace BitrixMigrations\Autocreate
     class Manager extends Base
     {
         /**
-         * Перезаписывает отдельный стандартный шаблон.
-         * @param  string $templates Коллекция шаблонов.
-         * @param  string $name      Имя шаблона.
-         * @return void
+         * Коллекция перегруженных стандартных шаблонов и обработчиков.
+         * @var array
          */
-        protected static function overrideTemplate($templates, $name)
-        {
-            $base = Path::makeAbsolute('../Templates', __DIR__);
-            $name = $name.'.template';
-            $path = Path::join($base, $name);
-
-            $templates->registerTemplate([
-                'name' => 'auto_'.$name,
-                'path' => $path
-            ]);
-        }
+        protected static $overrides = [
+            'OnBeforeHLBlockAdd' => 'add_hlblock'
+        ];
 
         /**
          * Перезаписывает некоторые стандартные шаблоны автосоздания миграции.
@@ -35,7 +25,19 @@ namespace BitrixMigrations\Autocreate
          */
         protected static function overrideTemplates($templates)
         {
-            self::overrideTemplate($templates, 'add_hlblock');
+            $base = Path::makeAbsolute('../Templates', __DIR__);
+            $names = array_values(self::$overrides);
+
+            foreach ($names as $name)
+            {
+                $path = Path::join($base, $name.'.tempalte');
+                $name = 'auto_'.$name;
+
+                $templates->registerTemplate([
+                    'name' => $name,
+                    'path' => $path
+                ]);
+            }
         }
 
         /**
@@ -61,6 +63,21 @@ namespace BitrixMigrations\Autocreate
             static::addEventHandlers();
 
             static::turnOn();
+        }
+
+        /**
+         * Перегружает получение экземпляра обработчика события.
+         * @param  string       $handler    Имя обработчика.
+         * @param  array<mixed> $parameters Аргументы вызова события.
+         * @return mixed                    Сущность обработчика.
+         */
+        protected static function instantiateHandler($handler, $parameters)
+        {
+            $isNative = !isset(self::$overrides[$handler]);
+            if ($isNative) return parent::instantiateHandler($handler, $parameters);
+
+            $class = __NAMESPACE__.'\\Handlers\\'.$handler;
+            return new $class($parameters);
         }
     }
 }
