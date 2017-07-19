@@ -7,6 +7,7 @@ namespace BitrixMigrations\Command
 
     /**
      * Команда обновления миграций. Совмещает в себе команды install и migrate.
+     * @internal
      */
     class Update extends Base
     {
