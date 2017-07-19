@@ -1,6 +1,6 @@
 # Миграции БД для CMS Битрикс
 
-Библиотека является оберткой для библиотеки [arrilot/bitrix-migrations](https://github.com/arrilot/bitrix-migrations), немного расширяющей стандартный функционал.
+Библиотека является оберткой для библиотеки [arrilot/bitrix-migrations](https://github.com/arrilot/bitrix-migrations), и немного расширяет стандартный функционал.
 
 ## Установка
 
