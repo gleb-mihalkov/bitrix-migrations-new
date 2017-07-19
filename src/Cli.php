@@ -53,7 +53,7 @@ namespace BitrixMigrations
             $app->add(new RollbackCommand($migrator));
             $app->add(new TemplatesCommand($templates));
             $app->add(new StatusCommand($migrator));
-            $app->add(new UpdateCommand($migrator, $table, $database));
+            $app->add(new UpdateCommand($table, $database, $migrator));
             $app->run();
         }
     }
