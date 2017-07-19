@@ -6,6 +6,7 @@ namespace BitrixMigrations\Autocreate
 
     /**
      * Содержит вспомогательных методов для шаблонов миграций.
+     * @internal
      */
     class Helper
     {

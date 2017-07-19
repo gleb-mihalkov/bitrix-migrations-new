@@ -5,6 +5,7 @@ namespace BitrixMigrations\Autocreate\Handlers
 
     /**
      * Перекрывает обработчик события добавления Highload-блока.
+     * @internal
      */
     class OnBeforeHLBlockAdd extends Base
     {
