@@ -1,7 +1,7 @@
 <?php
 namespace BitrixMigrations
 {
-    use Arrilot\BitrixMigrations\Autocreate\Manager;
+    use BitrixMigrations\Autocreate\Manager;
     use Webmozart\PathUtil\Path;
 
     /**
