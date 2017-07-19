@@ -2,6 +2,8 @@
 
 Библиотека является оберткой для библиотеки [arrilot/bitrix-migrations](https://github.com/arrilot/bitrix-migrations), и немного расширяет стандартный функционал.
 
+[Документация](https://gleb-mihalkov.github.io/bitrix-migrations-new/).
+
 ## Установка
 
 Упрощен способ создания интерфейса командной строки. Теперь для использования мигратора достачно создать файл \*.php,
