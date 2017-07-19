@@ -30,7 +30,7 @@ namespace BitrixMigrations\Autocreate
 
             foreach ($names as $name)
             {
-                $path = Path::join($base, $name.'.tempalte');
+                $path = Path::join($base, $name.'.template');
                 $name = 'auto_'.$name;
 
                 $templates->registerTemplate([
