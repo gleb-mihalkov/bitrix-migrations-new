@@ -3,6 +3,7 @@
 use Arrilot\BitrixMigrations\BaseMigrations\BitrixMigration;
 use Arrilot\BitrixMigrations\Exceptions\MigrationException;
 use Bitrix\Highloadblock\HighloadBlockTable;
+use BitrixMigrations\Autocreate\Helper;
 
 class __className__ extends BitrixMigration
 {
@@ -14,7 +15,6 @@ class __className__ extends BitrixMigration
      */
     public function up()
     {
-        // __table__;
         $fields = __fields__;
 
         $result = HighloadBlockTable::add($fields);
@@ -33,6 +33,7 @@ class __className__ extends BitrixMigration
      */
     public function down()
     {
-        return false;
+        $id = Helper::getHighloadIdByTable('__table__');
+        HighloadBlockTable::delete($id);
     }
 }
