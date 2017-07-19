@@ -13,6 +13,7 @@ namespace BitrixMigrations
     use Symfony\Component\Console\Application;
     use Webmozart\PathUtil\Path;
     use BitrixMigrations\Command\Update as UpdateCommand;
+    use CModule;
 
     /**
      * Содержит метод запуска командного интерфейса управления миграциями БД.

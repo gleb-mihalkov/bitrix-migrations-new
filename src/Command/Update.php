@@ -1,5 +1,5 @@
 <?php
-namespace BitrixMigration\Command
+namespace BitrixMigrations\Command
 {
     use Arrilot\BitrixMigrations\Interfaces\DatabaseStorageInterface;
     use Arrilot\BitrixMigrations\Migrator;
