@@ -1,0 +1,22 @@
+{
+    "name": "gm/bitrix-migrations",
+    "description": "Библиотека для автоматического управления миграциями БД для CMS Битрикс.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "gleb-mihalkov",
+            "email": "gleb.mihalkov.work@yandex.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "BitrixMigrations\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "arrilot/bitrix-migrations": "^2.3",
+        "webmozart/path-util": "^2.3"
+    }
+}
